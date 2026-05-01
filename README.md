@@ -66,17 +66,17 @@ PUT /clientes/{id} - Atualiza dados do cliente.
 
 DELETE /clientes/{id} - Desativa um cliente (Exclusão Lógica).
 
-# 🚗 Veículos
+### 🚗 Veículos
 POST /veiculos - Cadastra um veículo e já vincula aos IDs dos clientes donos.
 
 GET /veiculos - Lista todos os veículos.
 
-# ⚙️ Peças
+### ⚙️ Peças
 POST /pecas - Adiciona uma nova peça ao estoque.
 
 GET /pecas - Lista as peças disponíveis em estoque.
 
-# 📋 Ordens de Serviço
+### 📋 Ordens de Serviço
 POST /ordemservicos - Abre uma nova OS para um veículo (Inicia com valor zerado e status ABERTA).
 
 GET /ordemservicos - Lista todas as Ordens de Serviço.
@@ -85,5 +85,5 @@ PUT /ordemservicos/{id}/finalizar - Calcula o valor total das peças usadas, con
 
 PUT /ordemservicos/{id}/cancelar - Cancela a OS e estorna os itens diretamente para o estoque.
 
-# 🔧 Itens da OS
+### 🔧 Itens da OS
 POST /itens-peca - Adiciona uma quantidade de peças a uma OS aberta (desconta do estoque na mesma hora).
