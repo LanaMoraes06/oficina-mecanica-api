@@ -35,7 +35,7 @@ Este sistema controla desde o cadastro de clientes e seus veículos até o geren
 
 1. Clone o repositório:
    ```bash
-   git clone [https://github.com/SEU-USUARIO/sistema-oficina-mecanica.git](https://github.com/SEU-USUARIO/sistema-oficina-mecanica.git)
+   git clone [https://github.com/LanaMoraes06/sistema-oficina-mecanica.git](https://github.com/LanaMoraes06/sistema-oficina-mecanica.git)
    '''
    Abra o projeto na sua IDE e aguarde o Maven baixar as dependências.
 
