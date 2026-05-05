@@ -30,10 +30,19 @@ public class ClienteController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{id}")
+    //1
+    @GetMapping("/buscar-por-id/{id}")
     public ResponseEntity<Cliente> getID(@PathVariable UUID id) {
         return ResponseEntity.ok().body(clienteService.getID(id));
     }
+
+    //4
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Cliente>> getNameOrCpf(
+            @RequestParam(required = false, defaultValue = "") String termo) {
+        return ResponseEntity.ok().body(clienteService.getNomeOrCpf(termo));
+    }
+
 
     @GetMapping
     public ResponseEntity<List<Cliente>> getAll() {

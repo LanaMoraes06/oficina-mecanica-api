@@ -34,8 +34,33 @@ public class PecaController {
         return ResponseEntity.ok().body(pecaService.getID(id));
     }
 
+    //3
+    @GetMapping("/buscar")
+    public ResponseEntity<List<Peca>> findNameOrFabricante(
+            @RequestParam(required = false, defaultValue = "") String termo) {
+        return ResponseEntity.ok().body(pecaService.getByNomeOrFabricante(termo));
+    }
+
+    //9
+    @GetMapping("/ativos")
+    public ResponseEntity<List<Peca>> findByAtivoOrderByNome() {
+        return ResponseEntity.ok().body(pecaService.getByAtivoOrderByNome());
+    }
+
+    //10
+    @GetMapping("/estoque-critico")
+    public ResponseEntity<List<Peca>> findByQtdEstoque(@RequestParam(defaultValue = "5") Integer limite) {
+        return ResponseEntity.ok().body(pecaService.getByQtdEstoque(limite));
+    }
+
+    //11
+    @GetMapping("/estoque-baixo")
+    public ResponseEntity<List<Peca>> findByQtdEstoqueLessThanEqual(@RequestParam(defaultValue = "5") Integer limite) {
+        return ResponseEntity.ok().body(pecaService.getByQtdEstoqueLessThanEqual(limite));
+    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<Peca> findById(@PathVariable UUID id, @Valid @RequestBody PecaDTO pecaDTO) {
+    public ResponseEntity<Peca> update(@PathVariable UUID id, @Valid @RequestBody PecaDTO pecaDTO) {
         return ResponseEntity.ok().body(pecaService.update(id, pecaDTO));
     }
 

@@ -32,7 +32,7 @@ public class PecaService {
 
     public void delete(UUID id) {
         Peca pecaExistente = pecaRepository
-                .findById(id).orElseThrow(() -> new RuntimeException("Peca não encontradocom id " + id));
+                .findById(id).orElseThrow(() -> new RuntimeException("Peca não encontrada com id " + id));
 
         boolean pecaJaFoiUsada = itemPecaRepository.existsByPeca(pecaExistente);
         if (pecaJaFoiUsada) {
@@ -47,17 +47,38 @@ public class PecaService {
 
     public Peca getID(UUID id) {
         return pecaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Peca não encontrado com id " + id));
+                .orElseThrow(() -> new RuntimeException("Peca não encontrada com id " + id));
     }
 
     public List<Peca> getAll() {
         return pecaRepository.findByAtivoTrue();
     }
 
+    //3
+    public List<Peca> getByNomeOrFabricante(String termo) {
+        return pecaRepository.findByNomeContainingIgnoreCaseOrFabricanteContainingIgnoreCase(termo, termo);
+    }
+
+    //9
+    public List<Peca> getByAtivoOrderByNome() {
+        return pecaRepository.findByAtivoTrueOrderByNome();
+    }
+
+    //10
+    public List<Peca> getByQtdEstoque(Integer limite) {
+        return pecaRepository.findByQtdEstoqueLessThan(limite);
+    }
+
+    //11
+    public List<Peca> getByQtdEstoqueLessThanEqual(Integer limite) {
+        return pecaRepository.findByQtdEstoqueLessThanEqual(limite);
+    }
+
+
     public Peca update(UUID id, PecaDTO pecaDTO) {
         Peca pecaExistente = pecaRepository
                 .findById(id)
-                .orElseThrow(() -> new RuntimeException("Peca não encontradocom id " + id));
+                .orElseThrow(() -> new RuntimeException("Peca não encontrada com id " + id));
 
         return pecaRepository.save(updatePeca(pecaExistente, pecaDTO));
     }

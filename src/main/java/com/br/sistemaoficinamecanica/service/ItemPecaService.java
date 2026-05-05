@@ -9,6 +9,7 @@ import com.br.sistemaoficinamecanica.model.entity.Peca;
 import com.br.sistemaoficinamecanica.repository.ItemPecaRepository;
 import com.br.sistemaoficinamecanica.repository.OrdemServicoRepository;
 import com.br.sistemaoficinamecanica.repository.PecaRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,14 @@ public class ItemPecaService {
         return itemPecaRepository.findById(new ItemPecaId(ordemServicoId, pecaId))
                 .orElseThrow(() -> new RuntimeException("Item não encontrado nesta Ordem de serviço."));
     }
+
+    @Transactional
+    public void deleteByOrdemServico(UUID ordemServicoID) {
+        OrdemServico os = ordemServicoRepository.findById(ordemServicoID)
+                .orElseThrow(() -> new RuntimeException("Item não encontrado nesta Ordem de serviço."));
+        itemPecaRepository.deleteByOrdemServico(os);
+    }
+
 
     public ItemPeca create(ItemPecaDTO dto) {
         OrdemServico os = ordemServicoRepository.findById(dto.getOrdemServicoId())

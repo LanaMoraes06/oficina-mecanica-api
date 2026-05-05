@@ -9,5 +9,11 @@ import java.util.UUID;
 public interface ClienteRepository extends JpaRepository<Cliente, UUID> {
     boolean existsByCpf(String cpf);
 
+    //1
     List<Cliente> findByAtivoTrue();
+
+    //2
+    List<Cliente> findByNomeContainingOrCpfContaining(String nome, String cpf);
+
+
 }

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -55,6 +56,39 @@ public class OrdemServicoService {
         return ordemServicoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Ordem de Serviço não encontrada com id " + id));
     }
+
+    //2
+    public Optional<OrdemServico> getUltimaOsDoVeiculo(UUID veiculoId) {
+        Veiculo veiculo = veiculoRepository.findById(veiculoId)
+                .orElseThrow(() -> new RuntimeException("Veículo não encontrado"));
+        return ordemServicoRepository.findFirstByVeiculoOrderByDataAberturaDesc(veiculo);
+    }
+
+    //5
+    public List<OrdemServico> getStatus(List<StatusOS> status) {
+        return ordemServicoRepository.findByStatusIn(status);
+    }
+
+    //6
+    public List<OrdemServico> getDataAberturaDesc() {
+        return ordemServicoRepository.findAllByOrderByDataAberturaDesc();
+    }
+
+    //7
+    public List<OrdemServico> getByDataAbertura(LocalDateTime inicio, LocalDateTime fim) {
+        return ordemServicoRepository.findByDataAberturaBetween(inicio, fim);
+    }
+
+    //12
+    public List<OrdemServico> getValorTotalGreaterThanEqual(BigDecimal valor) {
+        return ordemServicoRepository.findByValorTotalGreaterThanEqual(valor);
+    }
+
+    //13
+    public List<OrdemServico> getValorTotalGreaterThan(BigDecimal valor) {
+        return ordemServicoRepository.findByValorTotalGreaterThan(valor);
+    }
+
 
     public OrdemServico finalizar(UUID id) {
         OrdemServico os = getById(id);

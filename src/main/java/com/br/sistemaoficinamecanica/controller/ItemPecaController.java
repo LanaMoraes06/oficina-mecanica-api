@@ -18,12 +18,21 @@ public class ItemPecaController {
     @Autowired
     private ItemPecaService itemPecaService;
 
+    @GetMapping("/{ordemServicoId}/{pecaId}")
+    public ResponseEntity<ItemPeca> getById(
+            @PathVariable UUID ordemServicoId,
+            @PathVariable UUID pecaId) {
+
+        ItemPeca item = itemPecaService.getById(ordemServicoId, pecaId);
+        return ResponseEntity.ok().body(item);
+    }
+
     @PostMapping
     public ResponseEntity<ItemPeca> create(@Valid @RequestBody ItemPecaDTO dto) {
         ItemPeca itemSalvo = itemPecaService.create(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(itemSalvo);
     }
-   
+
     @PutMapping("/{ordemServicoId}/{pecaId}")
     public ResponseEntity<ItemPeca> update(
             @PathVariable UUID ordemServicoId,
@@ -40,6 +49,15 @@ public class ItemPecaController {
             @PathVariable UUID pecaId) {
 
         itemPecaService.delete(ordemServicoId, pecaId);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/limparOS/{pecaId}")
+    public ResponseEntity<Void> deleteByOrdemServico(
+            @PathVariable UUID ordemServicoId) {
+
+        itemPecaService.deleteByOrdemServico(ordemServicoId);
 
         return ResponseEntity.noContent().build();
     }

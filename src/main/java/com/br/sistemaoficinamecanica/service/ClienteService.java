@@ -48,10 +48,16 @@ public class ClienteService {
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado com id " + id));
     }
 
-
+    //1. findBy
     public List<Cliente> getAll() {
         return clienteRepository.findByAtivoTrue();
     }
+
+    //4. findByOr
+    public List<Cliente> getNomeOrCpf(String termo) {
+        return clienteRepository.findByNomeContainingOrCpfContaining(termo, termo);
+    }
+
 
     public Cliente update(UUID idCliente, ClienteDTO updateDTO) {
         Cliente clienteExistente = clienteRepository
